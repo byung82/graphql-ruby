@@ -51,7 +51,11 @@ module GraphQL
         end
 
         def call(obj, args, ctx)
-          obj.public_send(@field.name)
+          if obj.class.name == 'Hash'
+            obj[@field.name]
+          else
+            obj.public_send(@field.name)
+          end
         end
       end
     end
